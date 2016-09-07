@@ -1,0 +1,14 @@
+<ivysettings>
+  <settings defaultResolver="default">
+    <credentials host="releases.eysys.com" realm="Eysys private releases repository" username="releases" passwd="dear momentous excellent rescue" />
+  </settings>
+  <resolvers>
+    <chain name="default">
+      <url name="eysys">
+        <ivy pattern="http://releases.eysys.com/[module]/ivy-[revision].xml" />
+        <artifact pattern="http://releases.eysys.com/[module]/[artifact]-[revision].[ext]" />
+      </url>
+      <ibiblio name="public" m2compatible="true" />
+    </chain>
+  </resolvers>
+</ivysettings>

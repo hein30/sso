@@ -1,0 +1,85 @@
+<project name="air-travelport" default="dist" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
+	<description>Generate web service clients and classes from Travelport WSDLs</description>
+
+	<!-- ============================================================== -->
+	<!--    S E T U P                                                   -->
+	<!-- ============================================================== -->
+
+	<property name="dir.build" value="bin" />
+	<property name="dir.wsdl.root" value="Release-V16.3.0.33-V16.3" />
+	<property name="dir.dist" value="dist" />
+	<property name="dir.gen" value="generated" />
+	<property name="version.full" value="16.3.0.33" />
+
+	<!-- ============================================================== -->
+	<!--    C L E A N                                                   -->
+	<!-- ============================================================== -->
+
+	<target name="clean" description="delete all build artifacts">
+		<delete dir="${dir.build}" />
+		<delete dir="${dir.dist}" />
+		<delete dir="${dir.gen}" />
+	</target>
+
+
+	<!-- ============================================================== -->
+	<!--    G E N E R A T I O N                                         -->
+	<!-- ============================================================== -->
+
+	<target name="dist" description="(re)generate module jars from WSDLs">
+		<!-- wipe the old -->
+		<delete dir="${dir.gen}" />
+		<mkdir dir="${dir.gen}" />
+
+		<!-- process each module -->
+		<antcall target="dist.module">
+			<param name="gen.module" value="air_v38_0" />
+			<param name="gen.wsdl" value="${dir.wsdl.root}/air_v38_0/Air.wsdl" />
+			<param name="gen.jar" value="travelport-air" />
+		</antcall>
+		<antcall target="dist.module">
+			<param name="gen.module" value="system_v32_0" />
+			<param name="gen.wsdl" value="${dir.wsdl.root}/system_v32_0/System.wsdl" />
+			<param name="gen.jar" value="travelport-system" />
+		</antcall>
+		<antcall target="dist.module">
+			<param name="gen.module" value="universal_v38_0" />
+			<param name="gen.wsdl" value="${dir.wsdl.root}/universal_v38_0/UniversalRecord.wsdl" />
+			<param name="gen.jar" value="travelport-universal" />
+		</antcall>
+		<antcall target="dist.module">
+			<param name="gen.module" value="gdsQueue_v38_0" />
+			<param name="gen.wsdl" value="${dir.wsdl.root}/gdsQueue_v38_0/GDSQueue.wsdl" />
+			<param name="gen.jar" value="travelport-gds" />
+		</antcall>
+	</target>
+
+	<!-- private target to process a single module -->
+	<target name="dist.module">
+		<echo message="generating ${gen.module}" /> 
+		<mkdir dir="${dir.gen}/${gen.module}" />
+		<mkdir dir="${dir.build}/${gen.module}" />
+
+		<!-- import wsdl -->
+		<exec executable="${java.home}/../bin/wsimport">
+			<arg value="-clientjar" />
+			<arg value="/${gen.jar}-${version.full}.jar" />
+			<arg value="-encoding" />
+			<arg value="UTF-8" />
+			<arg value="-s" />
+			<arg path="${dir.gen}/${gen.module}" />
+			<arg value="-d" />
+			<arg path="${dir.build}/${gen.module}" />
+			<arg value="${gen.wsdl}" />
+		</exec>
+
+		<!-- copy artefact -->
+		<copy todir="${dir.dist}/${gen.jar}" >
+			<fileset dir="${dir.build}/${gen.module}" includes="*.jar" />
+		</copy>
+		<ivy:resolve file="${gen.jar}-ivy.xml" />
+		<ivy:deliver deliverpattern="${dir.dist}/${gen.jar}/[artifact]-[revision].[ext]" pubrevision="${version.full}" status="release" />
+
+	</target>
+
+</project>
