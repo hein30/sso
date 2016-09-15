@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
-  <info organisation="com.eysys" module="travelport-air" />
+  <info organisation="com.eysys" module="sso-wsdl" />
 
   <configurations>
     <conf name="compile" visibility="public"/>
@@ -8,6 +8,6 @@
   </configurations>
 
   <publications>
-    <artifact name="travelport-air" ext="jar" type="jar" conf="compile" />
+    <artifact name="sso-wsdl" ext="jar" type="jar" conf="compile" />
   </publications>
 </ivy-module>
