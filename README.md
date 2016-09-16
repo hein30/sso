@@ -1,24 +1,21 @@
-## Travelport WSDL import
+## SSO connector WSDL import
 
-Imports WSDLs from the Travelport zip archive to generate web service clients and bean classes.
+Imports WSDLs from the Bond SSO endpoints to generate web service clients and bean classes.
 
 To build, just run `ant`
 
 To deploy to releases, 
 * `cd dist`
-* for each subdirectory `travelport-foo`, run `scp travelport-foo/*.* <you>@releases.eysys.com:/srv/releases/travelport-foo/`
+* for each subdirectory `sso-wsdl`, run `scp sso-wsdl/*.* <you>@releases.eysys.com:/srv/releases/sso-wsdl/`
 * double-check file permissions on the server after doing this
 
 
 Currently these commands are:
 ```bash
-scp travelport-air/*.* <you>releases.eysys.com:/srv/releases/travelport-air/
-scp travelport-gds/*.* <you>@releases.eysys.com:/srv/releases/travelport-gds/
-scp travelport-system/*.* <you>@releases.eysys.com:/srv/releases/travelport-system/
-scp travelport-universal/*.* <you>@releases.eysys.com:/srv/releases/travelport-universal/
+scp sso-wsdl/*.* <you>releases.eysys.com:/srv/releases/sso-wsdl/
 ```
 
-To add a new module called travelport-foo:
-* copy travelport-air-ivy.xml to travelport-foo-ivy.xml and edit all occurrances of travelport-air in that file to travelport-foo
+To add a new module called sso-wsdl2:
+* copy sso-wsdl-ivy.xml to sso-wsdl2-ivy.xml and edit all occurrances of sso-wsdl in that file to sso-wsdl2
 * add an `<antcall target="dist.module" ...` entry to the `dist` target, setting properties as appropriate
 
