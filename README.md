@@ -12,7 +12,7 @@ To deploy to releases,
 
 Currently these commands are:
 ```bash
-scp sso-wsdl/*.* <you>releases.eysys.com:/srv/releases/sso-wsdl/
+scp sso-wsdl/*.* <you>@releases.eysys.com:/srv/releases/sso-wsdl/
 ```
 
 To add a new module called sso-wsdl2:
