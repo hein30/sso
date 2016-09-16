@@ -6,13 +6,14 @@
 	<!-- ============================================================== -->
 
 	<property name="wsdl.url" value="https://scotiarewardsappsphase1.bondstage.com/ScotiaRewardsTravelService/ScotiaTravelService.asmx?WSDL" />
+	<property name="dist.dir" value="dist" />
 
 	<!-- ============================================================== -->
 	<!--    C L E A N                                                   -->
 	<!-- ============================================================== -->
 
 	<target name="clean" description="delete all build artifacts">
-		<delete file="sso-wsdl.jar" />
+		<delete dir="${dist.dir}" />
 	</target>
 
 
@@ -21,6 +22,8 @@
 	<!-- ============================================================== -->
 
 	<target name="dist" description="(re)generate module jars from WSDLs">
+		<mkdir dir="${dist.dir}" />
+
 		<!-- process each module -->
 		<antcall target="dist.module">
 			<param name="gen.module" value="sso_wsdl" />
@@ -39,6 +42,8 @@
 			<arg value="${gen.jar}.jar" />
 			<arg value="-encoding" />
 			<arg value="UTF-8" />
+			<arg value="-d" />
+			<arg path="${dist.dir}" />
 			<arg value="${gen.wsdl}" />
 		</exec>
 	</target>
