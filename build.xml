@@ -48,7 +48,7 @@
 		<!-- import wsdl -->
 		<exec executable="${java.home}/../bin/wsimport">
 			<arg value="-clientjar" />
-			<arg value="${gen.jar}-${version.full}.jar" />
+			<arg value="${gen.jar}.jar" />
 			<arg value="-encoding" />
 			<arg value="UTF-8" />
 			<arg value="-s" />
